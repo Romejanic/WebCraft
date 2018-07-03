@@ -11,8 +11,12 @@ function Block(id, name) {
     blocks[id] = this;
 }
 
+Block.prototype.isAir = function() {
+    return this.id === 0;
+};
+
 Block.prototype.isOpaque = function() {
-    return !this.transparent;
+    return !this.isAir() && !this.transparent;
 };
 
 Block.prototype.isFaceCulled = function(x, y, z, world, face) {
@@ -29,7 +33,7 @@ Block.prototype.render = function(vertices, world, x, y, z) {
             continue;
         }
         switch(f) {
-        case 5:
+        case 4:
             vertices.push(x - 0.5);
             vertices.push(y - 0.5);
             vertices.push(z - 0.5);
@@ -39,6 +43,18 @@ Block.prototype.render = function(vertices, world, x, y, z) {
             vertices.push(z - 0.5);
     
             vertices.push(x - 0.5);
+            vertices.push(y + 0.5);
+            vertices.push(z - 0.5);
+
+            vertices.push(x - 0.5);
+            vertices.push(y + 0.5);
+            vertices.push(z - 0.5);
+
+            vertices.push(x + 0.5);
+            vertices.push(y - 0.5);
+            vertices.push(z - 0.5);
+
+            vertices.push(x + 0.5);
             vertices.push(y + 0.5);
             vertices.push(z - 0.5);
             break;

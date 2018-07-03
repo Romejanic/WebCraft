@@ -40,12 +40,14 @@ World.prototype.isBlockAir = function(x, y, z) {
 }
 
 World.prototype.generate = function() {
-    var seaLevel = this.height / 2;
+    var seaLevel  = this.height / 2;
+    var deviation = this.height / 8;
     for(var x = 0; x < this.width; x++) {
         for(var y = 0; y < this.height; y++) {
             for(var z = 0; z < this.depth; z++) {
-                var idx = (z * this.height + (y * this.width)) + x;
-                this.blocks[idx] = y <= seaLevel ? 1 : 0;
+                var idx  = (z * this.height + (y * this.width)) + x;
+                var yLvl = seaLevel + deviation * Math.random();
+                this.blocks[idx] = y <= yLvl ? 1 : 0;
             }
         }
     }

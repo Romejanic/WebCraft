@@ -1,3 +1,8 @@
+precision highp float;
+
+varying float height;
+
 void main() {
-    gl_FragColor = vec4(1., .2, .2, 1.);
+    gl_FragColor.xyz = vec3(height);
+    gl_FragColor.w   = 1.;
 }

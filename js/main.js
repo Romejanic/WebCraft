@@ -6,7 +6,7 @@ const game = {
     renderScale: 1.0,
 
     world: undefined,
-    camera: new Camera(0, 0, 3),
+    camera: new Camera(128, 150, 128),
 
     worldRenderer: undefined,
 

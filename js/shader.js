@@ -18,7 +18,7 @@ function Shader(gl, name) {
         return;
     }
     if(!gl.getShaderParameter(fs, gl.COMPILE_STATUS)) {
-        var log = gl.getShaderInfoLog(vs);
+        var log = gl.getShaderInfoLog(fs);
         console.error("Failed to compile " + name + "_fs!\n", log);
         gl.deleteShader(vs);
         gl.deleteShader(fs);
