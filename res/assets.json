@@ -9,6 +9,16 @@
         "type": "shader",
         "url": "/res/shaders/terrain_fs.glsl"
     },
+    {
+        "id": "shadow_vs",
+        "type": "shader",
+        "url": "/res/shaders/shadow_vs.glsl"
+    },
+    {
+        "id": "shadow_fs",
+        "type": "shader",
+        "url": "/res/shaders/shadow_fs.glsl"
+    },
 
     {
         "id": "terrain_atlas",

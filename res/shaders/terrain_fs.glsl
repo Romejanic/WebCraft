@@ -20,4 +20,6 @@ void main() {
 
     gl_FragColor = texture2D(atlas, v_texCoords);
     gl_FragColor.xyz *= ndotl;
+
+    // gl_FragColor.xyz = vec3(v_shadow.xy,0.);
 }

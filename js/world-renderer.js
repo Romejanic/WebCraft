@@ -46,7 +46,7 @@ WorldRenderer.prototype.preRender = function(camera, shadows, isShadowPass) {
         this.gl.uniformMatrix4fv(this.shader.getUniformLocation("projMat"), false, camera.projMat);
         this.gl.uniformMatrix4fv(this.shader.getUniformLocation("viewMat"), false, camera.viewMat);
         this.gl.uniform1i(this.shader.getUniformLocation("atlas"), 0);
-        shadows.setUniforms(this.shader);
+        shadows.setUniforms(this.shader, false);
     }
 };
 

@@ -58,16 +58,17 @@ const game = {
     },
 
     renderFrame: function(gl, w, h) {
-        this.shadows.beginDrawing();
-        this.worldRenderer.preRender(this.camera);
-        this.worldRenderer.render(gl);
+        this.camera.updateMatrices(w, h);
+
+        this.shadows.beginDrawing(this.camera);
+        this.worldRenderer.preRender(this.camera, this.shadows, true);
+        this.worldRenderer.render(gl, true);
         this.shadows.endDrawing();
 
-        this.camera.updateMatrices(w, h);
         gl.viewport(0, 0, w, h);
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-        this.worldRenderer.preRender(this.camera);
-        this.worldRenderer.render(gl);
+        this.worldRenderer.preRender(this.camera, this.shadows, false);
+        this.worldRenderer.render(gl, false);
     },
 
     destroy: function() {

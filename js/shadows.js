@@ -2,6 +2,9 @@ function ShadowRenderer(gl, resolution) {
     this.gl = gl;
     this.enabled = true;
     this.resolution = resolution || 1024;
+    
+    this.lightDir = vec3.fromValues(45, 30, -45);
+    vec3.normalize(this.lightDir, this.lightDir);
 
     var ext = gl.getExtension("WEBGL_depth_texture");
     if(!ext) {
@@ -33,11 +36,11 @@ function ShadowRenderer(gl, resolution) {
     }
 }
 
-ShadowRenderer.prototype.beginDrawing = function() {
+ShadowRenderer.prototype.beginDrawing = function(camera) {
     mat4.identity(this.projMat);
     mat4.identity(this.viewMat);
     mat4.ortho(this.projMat, -20, 20, -20, 20, -50, 50);
-    mat4.lookAt(this.viewMat, [45, 30, -45], [0, 0, 0], [0, 1, 0]);
+    mat4.lookAt(this.viewMat, vec3.add(vec3.create(), camera.position, this.lightDir), camera.position, [0, -1, 0]);
 
     this.gl.bindTexture(this.gl.TEXTURE_2D, null);
     this.gl.bindFramebuffer(this.gl.FRAMEBUFFER, this.framebuffer);
@@ -56,7 +59,7 @@ ShadowRenderer.prototype.endDrawing = function() {
 ShadowRenderer.prototype.setUniforms = function(shader, isDrawing) {
     this.gl.uniformMatrix4fv(shader.getUniformLocation("shadowProj"), false, this.projMat);
     this.gl.uniformMatrix4fv(shader.getUniformLocation("shadowView"), false, this.viewMat);
-    if(isDrawing) {
+    if(!isDrawing) {
         this.gl.uniform1i(shader.getUniformLocation("shadowmap"), 1);
         this.gl.activeTexture(this.gl.TEXTURE1);
         this.gl.bindTexture(this.gl.TEXTURE_2D, this.shadowMap);
