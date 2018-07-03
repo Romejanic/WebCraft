@@ -24,6 +24,7 @@ const assetLoader = {
         } else {
             var asset = assetLoader.assetsToLoad[idx];
             switch(asset.type) {
+                case "texture":
                 case "image":
                     var img = new Image();
                     img.onload = function() {

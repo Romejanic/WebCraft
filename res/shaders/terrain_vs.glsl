@@ -2,7 +2,7 @@ precision highp float;
 
 attribute vec3 vertex;
 attribute vec2 texCoords;
-attribute vec3 data;
+attribute vec3 data; // x - block id, y - face, z - wave amount
 
 uniform mat4 projMat;
 uniform mat4 viewMat;
