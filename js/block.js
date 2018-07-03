@@ -11,6 +11,24 @@ function Block(id, name) {
     blocks[id] = this;
 }
 
-Block.prototype.render = function(vertices, world, x, y, z) {
+Block.prototype.isOpaque = function() {
+    return !this.transparent;
+};
+
+Block.prototype.isFaceCulled = function(x, y, z, face) {
     
+};
+
+Block.prototype.render = function(vertices, world, x, y, z) {
+    vertices.push(x - 0.5);
+    vertices.push(y - 0.5);
+    vertices.push(z - 0.5);
+
+    vertices.push(x + 0.5);
+    vertices.push(y - 0.5);
+    vertices.push(z - 0.5);
+
+    vertices.push(x - 0.5);
+    vertices.push(y + 0.5);
+    vertices.push(z - 0.5);
 };
