@@ -92,3 +92,8 @@ function error(err) {
 window.addEventListener("load", () => {
     game.init();
 });
+
+Math.clamp = function(x, a, b) {
+    return x < a ? a : x > b ? b : x;
+};
+Math.rad = glMatrix.toRadian;

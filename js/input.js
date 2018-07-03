@@ -17,7 +17,7 @@ const input = {
             input.mouseDY = e.pageY - input.mouseY;
             input.mouseX  = e.pageX;
             input.mouseY  = e.pageY;
-        });
+        }, false);
     },
     
     isKeyDown: function(keyCode) {
