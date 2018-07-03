@@ -9,6 +9,7 @@ const game = {
     camera: new Camera(128, 150, 128),
 
     worldRenderer: undefined,
+    shadows: undefined,
 
     init: function() {
         this.canvas = document.getElementById("main");
@@ -41,6 +42,7 @@ const game = {
         gl.cullFace(gl.BACK);
 
         this.worldRenderer = new WorldRenderer(gl, this.world);
+        this.shadows = new ShadowRenderer(gl);
 
         input.init(this.canvas);
         window.addEventListener("unload", this.destroy);
@@ -56,11 +58,15 @@ const game = {
     },
 
     renderFrame: function(gl, w, h) {
+        this.worldRenderer.preRender(this.camera);
+
+        this.shadows.beginDrawing();
+        this.worldRenderer.render(gl);
+        this.shadows.endDrawing();
+
         this.camera.updateMatrices(w, h);
         gl.viewport(0, 0, w, h);
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-
-        this.worldRenderer.preRender(this.camera);
         this.worldRenderer.render(gl);
     },
 
