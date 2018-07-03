@@ -19,6 +19,11 @@ function WorldRenderer(gl, world) {
     }
 
     this.shader = new Shader(gl, "terrain");
+    this.shader.bind();
+    for(var f = 0; f < FACING.length; f++) {
+        gl.uniform3fv(this.shader.getUniformLocation("normals[" + f + "]"), FACING[f].direction);
+    }
+    this.shader.unbind();
 }
 
 WorldRenderer.prototype.preRender = function(camera) {
