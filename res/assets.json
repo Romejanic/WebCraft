@@ -1,10 +1,12 @@
-{
-    "test_vs": {
+[
+    {
+        "id": "test_vs",
         "type": "shader",
         "url": "/res/shaders/test_vs.glsl"
     },
-    "test_fs": {
+    {
+        "id": "test_fs",
         "type": "shader",
         "url": "/res/shaders/test_fs.glsl"
     }
-}
+]

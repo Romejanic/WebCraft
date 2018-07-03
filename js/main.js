@@ -90,7 +90,9 @@ function error(err) {
 }
 
 window.addEventListener("load", () => {
-    game.init();
+    assetLoader.loadAssets(() => {
+        game.init();
+    });
 });
 
 Math.clamp = function(x, a, b) {
