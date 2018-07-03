@@ -5,8 +5,8 @@ function Shader(gl, name) {
 
     var vs = gl.createShader(gl.VERTEX_SHADER);
     var fs = gl.createShader(gl.FRAGMENT_SHADER);
-    gl.shaderSource(vs, assets["test_vs"]);
-    gl.shaderSource(fs, assets["test_fs"]);
+    gl.shaderSource(vs, assets[name + "_vs"]);
+    gl.shaderSource(fs, assets[name + "_fs"]);
     gl.compileShader(vs);
     gl.compileShader(fs);
 

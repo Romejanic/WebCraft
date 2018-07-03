@@ -16,10 +16,13 @@ const game = {
             error("Canvas could not be found!");
             return;
         }
-        this.gl = this.canvas.getContext("webgl");
+        var options = {
+            antialias: false
+        };
+        this.gl = this.canvas.getContext("webgl", options);
         if(!this.gl) {
             console.warn("Falling back on experimental WebGL context...");
-            this.gl = this.canvas.getContext("experimental-webgl");
+            this.gl = this.canvas.getContext("experimental-webgl", options);
         }
         if(!this.gl) {
             error("Your browser does not support WebGL! Please enable it in your settings.");
