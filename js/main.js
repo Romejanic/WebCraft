@@ -5,6 +5,7 @@ const game = {
     gl: undefined,
     renderScale: 1.0,
 
+    world: undefined,
     camera: new Camera(0, 0, 3),
 
     chunk: undefined,
@@ -32,6 +33,8 @@ const game = {
     },
 
     startGame: function(gl) {
+        this.world = new World(256, 256, 256);
+
         gl.clearColor(0.4, 0.6, 0.9, 1.0);
         gl.enable(gl.DEPTH_TEST);
         gl.enable(gl.CULL_FACE);

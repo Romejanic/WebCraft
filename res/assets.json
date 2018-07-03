@@ -1,12 +1,12 @@
 [
     {
-        "id": "test_vs",
+        "id": "terrain_vs",
         "type": "shader",
-        "url": "/res/shaders/test_vs.glsl"
+        "url": "/res/shaders/terrain_vs.glsl"
     },
     {
-        "id": "test_fs",
+        "id": "terrain_fs",
         "type": "shader",
-        "url": "/res/shaders/test_fs.glsl"
+        "url": "/res/shaders/terrain_fs.glsl"
     }
 ]
