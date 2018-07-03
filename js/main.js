@@ -29,13 +29,6 @@ const game = {
             return;
         }
         this.startGame(this.gl);
-        
-        this.canvas.onclick = function() {
-            this.requestPointerLock = this.requestPointerLock ||
-                                    this.mozRequestPointerLock ||
-                                    this.webkitRequestPointerLock;
-            this.requestPointerLock();
-        };
     },
 
     startGame: function(gl) {

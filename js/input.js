@@ -21,6 +21,12 @@ const input = {
             input.mouseX  = e.pageX;
             input.mouseY  = e.pageY;
         }, false);
+        canvas.addEventListener("click", () => {
+            canvas.requestPointerLock = canvas.requestPointerLock ||
+                                    canvas.mozRequestPointerLock ||
+                                    canvas.webkitRequestPointerLock;
+            canvas.requestPointerLock();
+        });
     },
     
     isKeyDown: function(keyCode) {
