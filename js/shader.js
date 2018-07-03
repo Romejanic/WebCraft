@@ -5,7 +5,7 @@ function Shader(gl, name) {
     var vsSrc = document.getElementById("test_vs").innerText;
     var fsSrc = document.getElementById("test_fs").innerText;
 
-    var vs = gl.createShader(gl.VERTeX_SHADER);
+    var vs = gl.createShader(gl.VERTEX_SHADER);
     var fs = gl.createShader(gl.FRAGMENT_SHADER);
     gl.shaderSource(vs, vsSrc);
     gl.shaderSource(fs, fsSrc);

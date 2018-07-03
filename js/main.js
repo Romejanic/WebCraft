@@ -5,6 +5,7 @@ const game = {
     gl: undefined,
 
     chunk: undefined,
+    shader: undefined,
 
     init: function() {
         this.canvas = document.getElementById("main");
@@ -26,6 +27,7 @@ const game = {
 
     startGame: function() {
         this.chunk = new Chunk(this.gl, 0, 0);
+        this.shader = new Shader(this.gl, "test");
 
         window.addEventListener("unload", this.destroy);
         this.updateLoop = setInterval(this.update, 1000/gameUpdateRate);
@@ -40,11 +42,14 @@ const game = {
         gl.clearColor(0.4, 0.6, 0.9, 1.0);
         gl.clear(gl.COLOR_BUFFER_BIT);
 
-        game.chunk.draw(gl);
+        this.shader.bind();
+        this.chunk.draw(gl);
+        this.shader.unbind();
     },
 
     destroy: function() {
-        this.chunk.destroy();
+        this.chunk.delete();
+        this.shader.delete();
         
         if(game.updateLoop) {
             clearInterval(game.updateLoop);
