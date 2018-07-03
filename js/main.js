@@ -29,6 +29,13 @@ const game = {
             return;
         }
         this.startGame(this.gl);
+        
+        this.canvas.onclick = function() {
+            this.requestPointerLock = this.requestPointerLock ||
+                                    this.mozRequestPointerLock ||
+                                    this.webkitRequestPointerLock;
+            this.requestPointerLock();
+        };
     },
 
     startGame: function(gl) {
@@ -41,7 +48,7 @@ const game = {
         this.chunk = new Chunk(gl, 0, 0);
         this.shader = new Shader(gl, "test");
 
-        input.init();
+        input.init(this.canvas);
         window.addEventListener("unload", this.destroy);
         this.updateLoop = setInterval(this.update, 1000/gameUpdateRate);
         this.requestRenderFrame();

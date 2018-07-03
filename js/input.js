@@ -5,16 +5,19 @@ const input = {
     mouseDX: 0,
     mouseDY: 0,
 
-    init: function() {
+    init: function(canvas) {
         document.addEventListener("keydown", (e) => {
             input.keys[e.keyCode] = true;
         });
         document.addEventListener("keyup", (e) => {
             delete input.keys[e.keyCode];
         });
-        document.addEventListener("mousemove", (e) => {
-            input.mouseDX = e.pageX - input.mouseX;
-            input.mouseDY = e.pageY - input.mouseY;
+        canvas.addEventListener("mousemove", (e) => {
+            if(document.pointerLockElement !== canvas && document.mozPointerLockElement !== canvas && document.webkitPointerLockElement !== canvas) {
+                return;
+            }
+            input.mouseDX = e.movementX;
+            input.mouseDY = e.movementY;
             input.mouseX  = e.pageX;
             input.mouseY  = e.pageY;
         }, false);
