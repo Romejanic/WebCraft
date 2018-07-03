@@ -1,6 +1,7 @@
 function Chunk(gl, x, z) {
     this.x = x;
     this.z = z;
+    this.gl = gl;
 
     var vertices = [
         -0.5, -0.5, 0.0,
@@ -31,5 +32,5 @@ Chunk.prototype.draw = function(gl) {
 };
 
 Chunk.prototype.delete = function() {
-    gl.deleteBuffer(this.vbo);
+    this.gl.deleteBuffer(this.vbo);
 };

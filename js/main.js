@@ -8,8 +8,7 @@ const game = {
     world: undefined,
     camera: new Camera(0, 0, 3),
 
-    chunk: undefined,
-    shader: undefined,
+    worldRenderer: undefined,
 
     init: function() {
         this.canvas = document.getElementById("main");
@@ -41,8 +40,7 @@ const game = {
         gl.depthFunc(gl.LEQUAL);
         gl.cullFace(gl.BACK);
 
-        this.chunk = new Chunk(gl, 0, 0);
-        this.shader = new Shader(gl, "terrain");
+        this.worldRenderer = new WorldRenderer(gl, this.world);
 
         input.init(this.canvas);
         window.addEventListener("unload", this.destroy);
@@ -62,16 +60,12 @@ const game = {
         gl.viewport(0, 0, w, h);
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
-        this.shader.bind();
-        gl.uniformMatrix4fv(this.shader.getUniformLocation("projMat"), false, this.camera.projMat);
-        gl.uniformMatrix4fv(this.shader.getUniformLocation("viewMat"), false, this.camera.viewMat);
-        this.chunk.draw(gl);
-        this.shader.unbind();
+        this.worldRenderer.preRender(this.camera);
+        this.worldRenderer.render(gl);
     },
 
     destroy: function() {
-        this.chunk.delete();
-        this.shader.delete();
+        this.worldRenderer.delete();
         
         if(game.updateLoop) {
             clearInterval(game.updateLoop);
@@ -107,3 +101,11 @@ Math.clamp = function(x, a, b) {
     return x < a ? a : x > b ? b : x;
 };
 Math.rad = glMatrix.toRadian;
+
+if(!window.assert) {
+    window.assert = function(condition, message) {
+        if(!condition) {
+            throw "Assertion error" + (message ? ": " + message : "");
+        }
+    };
+}
