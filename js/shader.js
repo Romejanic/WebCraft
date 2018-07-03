@@ -1,6 +1,7 @@
 function Shader(gl, name) {
     this.gl = gl;
     this.name = name;
+    this.uniforms = {};
 
     var vsSrc = document.getElementById("test_vs").innerText;
     var fsSrc = document.getElementById("test_fs").innerText;
@@ -59,4 +60,16 @@ Shader.prototype.delete = function() {
     if(this.program) {
         this.gl.deleteProgram(this.program);
     }
+};
+
+Shader.prototype.getUniformLocation = function(name) {
+    if(this.uniforms[name] != undefined) {
+        return this.uniforms[name];
+    }
+    var loc = this.gl.getUniformLocation(this.program, name);
+    if(!loc) {
+        console.warn("Uniform variable " + name + " not found in program " + this.name);
+    }
+    this.uniforms[name] = loc;
+    return loc;
 };

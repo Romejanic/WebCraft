@@ -5,6 +5,8 @@ const game = {
     gl: undefined,
     renderScale: 1.0,
 
+    camera: new Camera(0, 0, 3),
+
     chunk: undefined,
     shader: undefined,
 
@@ -46,10 +48,13 @@ const game = {
     },
 
     renderFrame: function(gl, w, h) {
+        this.camera.updateMatrices(w, h);
         gl.viewport(0, 0, w, h);
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
         this.shader.bind();
+        gl.uniformMatrix4fv(this.shader.getUniformLocation("projMat"), false, this.camera.projMat);
+        gl.uniformMatrix4fv(this.shader.getUniformLocation("viewMat"), false, this.camera.viewMat);
         this.chunk.draw(gl);
         this.shader.unbind();
     },

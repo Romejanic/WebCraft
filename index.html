@@ -4,15 +4,19 @@
     <title>WebCraft</title>
     <link rel="stylesheet" href="css/style.css" />
 
-    <script src="js/main.js"></script>
+    <script src="js/lib/gl-matrix-min.js"></script>
     <script src="js/chunk.js"></script>
     <script src="js/shader.js"></script>
+    <script src="js/camera.js"></script>
+    <script src="js/main.js"></script>
 
     <script type="shader/vertex" id="test_vs">
     attribute vec3 vertex;
+    uniform mat4 projMat;
+    uniform mat4 viewMat;
 
     void main() {
-        gl_Position = vec4(vertex, 1.);
+        gl_Position = projMat * viewMat * vec4(vertex, 1.);
     }
     </script>
     <script type="shader/fragment" id="test_fs">
