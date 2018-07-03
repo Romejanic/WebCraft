@@ -40,16 +40,21 @@ function WorldRenderer(gl, world) {
     gl.bindTexture(gl.TEXTURE_2D, null);
 }
 
-WorldRenderer.prototype.preRender = function(camera) {
-    this.shader.bind();
-    this.gl.uniformMatrix4fv(this.shader.getUniformLocation("projMat"), false, camera.projMat);
-    this.gl.uniformMatrix4fv(this.shader.getUniformLocation("viewMat"), false, camera.viewMat);
-    this.gl.uniform1i(this.shader.getUniformLocation("atlas"), 0);
+WorldRenderer.prototype.preRender = function(camera, shadows, isShadowPass) {
+    if(!isShadowPass) {
+        this.shader.bind();
+        this.gl.uniformMatrix4fv(this.shader.getUniformLocation("projMat"), false, camera.projMat);
+        this.gl.uniformMatrix4fv(this.shader.getUniformLocation("viewMat"), false, camera.viewMat);
+        this.gl.uniform1i(this.shader.getUniformLocation("atlas"), 0);
+        shadows.setUniforms(this.shader);
+    }
 };
 
-WorldRenderer.prototype.render = function(gl) {
-    this.gl.activeTexture(this.gl.TEXTURE0);
-    this.gl.bindTexture(gl.TEXTURE_2D, this.textureAtlas);
+WorldRenderer.prototype.render = function(gl, isShadowPass) {
+    if(!isShadowPass) {
+        this.gl.activeTexture(this.gl.TEXTURE0);
+        this.gl.bindTexture(gl.TEXTURE_2D, this.textureAtlas);
+    }
     this.chunks.forEach((chunk) => {
         chunk.draw(gl);
     });
