@@ -23,7 +23,7 @@ World.prototype.getBlock = function(x, y, z) {
     if(idx < 0) {
         return -1;
     }
-    return this.blocks[idx];
+    return blocks[this.blocks[idx]];
 }
 
 World.prototype.setBlock = function(x, y, z, block) {
@@ -31,7 +31,11 @@ World.prototype.setBlock = function(x, y, z, block) {
     if(idx < 0) {
         return;
     }
-    this.blocks[idx] = block;
+    this.blocks[idx] = block.id;
+}
+
+World.prototype.isBlockAir = function(x, y, z) {
+    return typeof this.getBlock(x, y, z) !== "undefined";
 }
 
 World.prototype.generate = function() {
