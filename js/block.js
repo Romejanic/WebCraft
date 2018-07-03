@@ -10,3 +10,7 @@ function Block(id, name) {
     assert(!blocks[id], "A block with ID " + id + " is already registered!");
     blocks[id] = this;
 }
+
+Block.prototype.render = function(vertices, world, x, y, z) {
+    
+};

@@ -16,12 +16,12 @@ Camera.prototype.update = function(delta) {
     this.rotation[1] += input.mouseDX * rotSpeed;
     this.rotation[0]  = Math.clamp(this.rotation[0], -89.0, 89.0);
 
-    var sinX   = Math.sin(Math.rad(this.rotation[0]));
-    var cosX   = Math.cos(Math.rad(this.rotation[0]));
-    var sinY   = Math.sin(Math.rad(this.rotation[1]));
-    var cosY   = Math.cos(Math.rad(this.rotation[1]));
-    var sinY90 = Math.sin(Math.rad(this.rotation[1] + 90.0));
-    var cosY90 = Math.cos(Math.rad(this.rotation[1] + 90.0));
+    var sinX   = Math.fsin(Math.rad(this.rotation[0]));
+    var cosX   = Math.fcos(Math.rad(this.rotation[0]));
+    var sinY   = Math.fsin(Math.rad(this.rotation[1]));
+    var cosY   = Math.fcos(Math.rad(this.rotation[1]));
+    var sinY90 = Math.fsin(Math.rad(this.rotation[1] + 90.0));
+    var cosY90 = Math.fcos(Math.rad(this.rotation[1] + 90.0));
     vec3.set(this.forward, sinY * cosX, -sinX, -cosY * cosX);
     vec3.normalize(this.forward, this.forward);
 

@@ -14,7 +14,7 @@ function WorldRenderer(gl, world) {
 
     for(var x = 0; x < this.xChunks; x++) {
         for(var z = 0; z < this.zChunks; z++) {
-            this.chunks[(z*this.xChunks)+x] = new Chunk(gl, x, z);
+            this.chunks[(z*this.xChunks)+x] = new Chunk(gl, world, x, z);
         }
     }
 
