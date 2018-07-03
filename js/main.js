@@ -25,7 +25,7 @@ const game = {
     startGame: function() {
         window.addEventListener("unload", this.destroy);
         this.updateLoop = setInterval(this.update, 1000/gameUpdateRate);
-        this.renderLoop = requestAnimationFrame(this.renderFrame);
+        this.requestRenderFrame();
     },
 
     update: function() {
@@ -35,7 +35,10 @@ const game = {
     renderFrame: function() {
         let gl = game.gl;
 
-        gl.clearColor(0.4, 0.6, 0.9, 1.0);
+        var r = 0.5 * Math.sin(Date.now() / 500) + 0.5;
+        var g = 0.5 * Math.cos(Date.now() / 500) + 0.5;
+
+        gl.clearColor(r, g, 0.9, 1.0);
         gl.clear(gl.COLOR_BUFFER_BIT);
     },
 
@@ -47,6 +50,11 @@ const game = {
         if(game.renderLoop) {
             cancelAnimationFrame(game.renderLoop);
         }
+    },
+
+    requestRenderFrame: function() {
+        game.renderFrame();
+        game.renderLoop = requestAnimationFrame(game.requestRenderFrame);
     }
 };
 
