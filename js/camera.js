@@ -5,13 +5,17 @@ function Camera(x, y, z) {
     this.near = 0.1;
     this.far  = 1000.0;
 
+    this.moveSpeed = 10.0;
+    this.rotSpeed  = 45.0;
+    this.speedMul  = 5.0;
+
     this.projMat = mat4.create();
     this.viewMat = mat4.create();
     this.forward = vec3.create();
 }
 
 Camera.prototype.update = function(delta) {
-    var rotSpeed = 45.0 * delta;
+    var rotSpeed = this.rotSpeed * delta;
     this.rotation[0] += input.mouseDY * rotSpeed;
     this.rotation[1] += input.mouseDX * rotSpeed;
     this.rotation[0]  = Math.clamp(this.rotation[0], -89.0, 89.0);
@@ -25,9 +29,9 @@ Camera.prototype.update = function(delta) {
     vec3.set(this.forward, sinY * cosX, -sinX, -cosY * cosX);
     vec3.normalize(this.forward, this.forward);
 
-    var moveSpeed = 5.0 * delta;
+    var moveSpeed = this.moveSpeed * delta;
     if(input.isKeyDown(KEY_SHIFT)) {
-        moveSpeed *= 2.5;
+        moveSpeed *= this.speedMul;
     }
 
     var forward = vec3.scale(vec3.create(), this.forward, moveSpeed);

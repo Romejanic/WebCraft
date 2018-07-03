@@ -1,5 +1,17 @@
 const blocks = Array(255); {
     new Block(1, "dirt");
+    new Block(2, "stone", 3);
+    new Block(3, "grass");
+
+    blocks[3].getIcon = function(face) {
+        if(face == 2) {
+            return 2;
+        } else if(face == 3) {
+            return 0;
+        } else {
+            return 1;
+        }
+    };
 }
 
 function Block(id, name, icon) {

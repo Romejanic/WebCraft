@@ -11,7 +11,7 @@ World.prototype.getBlockIndex = function(x, y, z) {
     if(x < 0 || y < 0 || z < 0 || x >= this.width || y >= this.height || z >= this.depth) {
         return undefined;
     }
-    var idx = (z * this.height + (y * this.width)) + x;
+    var idx = x + this.width * (y + this.depth * z);
     if(idx < 0 || idx >= this.blocks.length) {
         return undefined;
     }
@@ -40,18 +40,17 @@ World.prototype.isBlockAir = function(x, y, z) {
 }
 
 World.prototype.generate = function() {
-    var r  = 80;
-    var r2 = r * r;
-    var cx = this.width / 2;
-    var cy = this.height / 2;
+    var seaLevel = this.height / 2;
+    var grassLevel = seaLevel + 3;
     for(var x = 0; x < this.width; x++) {
         for(var y = 0; y < this.height; y++) {
             for(var z = 0; z < this.depth; z++) {
-                var dst2 = (x-cx)*(x-cx) + (y-cy)*(y-cy);
-                if(dst2 <= r2) {
-                    this.setBlock(x, y, z, blocks[0]);
-                } else {
+                if(y < seaLevel) {
+                    this.setBlock(x, y, z, blocks[2]);
+                } else if(y < grassLevel) {
                     this.setBlock(x, y, z, blocks[1]);
+                } else if(y == grassLevel) {
+                    this.setBlock(x, y, z, blocks[3]);
                 }
             }
         }
