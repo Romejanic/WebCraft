@@ -3,6 +3,7 @@ const gameUpdateRate = 50;
 const game = {
     canvas: undefined,
     gl: undefined,
+    renderScale: 1.0,
 
     chunk: undefined,
     shader: undefined,
@@ -22,12 +23,18 @@ const game = {
             error("Your browser does not support WebGL! Please enable it in your settings.");
             return;
         }
-        this.startGame();
+        this.startGame(this.gl);
     },
 
-    startGame: function() {
-        this.chunk = new Chunk(this.gl, 0, 0);
-        this.shader = new Shader(this.gl, "test");
+    startGame: function(gl) {
+        gl.clearColor(0.4, 0.6, 0.9, 1.0);
+        gl.enable(gl.DEPTH_TEST);
+        gl.enable(gl.CULL_FACE);
+        gl.depthFunc(gl.LEQUAL);
+        gl.cullFace(gl.BACK);
+
+        this.chunk = new Chunk(gl, 0, 0);
+        this.shader = new Shader(gl, "test");
 
         window.addEventListener("unload", this.destroy);
         this.updateLoop = setInterval(this.update, 1000/gameUpdateRate);
@@ -38,9 +45,9 @@ const game = {
         // game update code goes here
     },
 
-    renderFrame: function(gl) {
-        gl.clearColor(0.4, 0.6, 0.9, 1.0);
-        gl.clear(gl.COLOR_BUFFER_BIT);
+    renderFrame: function(gl, w, h) {
+        gl.viewport(0, 0, w, h);
+        gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
         this.shader.bind();
         this.chunk.draw(gl);
@@ -60,7 +67,11 @@ const game = {
     },
 
     requestRenderFrame: function() {
-        game.renderFrame(game.gl);
+        var w = game.canvas.clientWidth * game.renderScale;
+        var h = game.canvas.clientHeight * game.renderScale;
+        game.canvas.width = w, game.canvas.height = h;
+
+        game.renderFrame(game.gl, w, h);
         game.renderLoop = requestAnimationFrame(game.requestRenderFrame);
     }
 };
