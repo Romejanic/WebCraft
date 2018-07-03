@@ -18,7 +18,11 @@ function WorldRenderer(gl, world) {
         }
     }
 
-    this.shader = new Shader(gl, "terrain");
+    this.shader = new Shader(gl, "terrain", {
+        "vertex": 0,
+        "texCoords": 1,
+        "data": 2
+    });
     this.shader.bind();
     for(var f = 0; f < FACING.length; f++) {
         gl.uniform3fv(this.shader.getUniformLocation("normals[" + f + "]"), FACING[f].direction);

@@ -1,4 +1,4 @@
-function Shader(gl, name) {
+function Shader(gl, name, attributes) {
     this.gl = gl;
     this.name = name;
     this.uniforms = {};
@@ -28,6 +28,13 @@ function Shader(gl, name) {
     this.program = gl.createProgram();
     gl.attachShader(this.program, vs);
     gl.attachShader(this.program, fs);
+
+    if(attributes && typeof attributes === "object") {
+        for(key in attributes) {
+            gl.bindAttribLocation(this.program, attributes[key], key);
+        }
+    }
+
     gl.linkProgram(this.program);
     gl.detachShader(this.program, vs);
     gl.detachShader(this.program, fs);
