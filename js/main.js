@@ -50,6 +50,8 @@ const game = {
     update: function() {
         let delta = 1 / gameUpdateRate;
         game.camera.update(delta);
+
+        input.mouseDX = 0, input.mouseDY = 0;
     },
 
     renderFrame: function(gl, w, h) {
