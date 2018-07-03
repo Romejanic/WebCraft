@@ -25,8 +25,12 @@ Camera.prototype.update = function(delta) {
     vec3.set(this.forward, sinY * cosX, -sinX, -cosY * cosX);
     vec3.normalize(this.forward, this.forward);
 
-    var moveSpeed = 10.0 * delta;
-    var forward = vec3.scale(vec3.create(), this.forward, 10.0 * delta);
+    var moveSpeed = 5.0 * delta;
+    if(input.isKeyDown(KEY_SHIFT)) {
+        moveSpeed *= 2.5;
+    }
+
+    var forward = vec3.scale(vec3.create(), this.forward, moveSpeed);
     if(input.isKeyDown(KEY_W)) {
         vec3.add(this.position, this.position, forward);
     }
