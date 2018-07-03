@@ -47,14 +47,14 @@ WorldRenderer.prototype.preRender = function(camera, shadows, isShadowPass) {
         this.gl.uniformMatrix4fv(this.shader.getUniformLocation("viewMat"), false, camera.viewMat);
         this.gl.uniform1i(this.shader.getUniformLocation("atlas"), 0);
         shadows.setUniforms(this.shader, false);
+    } else {
+        this.gl.uniform1i(shadows.getShadowUniform("diffuse"), 0);
     }
 };
 
 WorldRenderer.prototype.render = function(gl, isShadowPass) {
-    if(!isShadowPass) {
-        this.gl.activeTexture(this.gl.TEXTURE0);
-        this.gl.bindTexture(gl.TEXTURE_2D, this.textureAtlas);
-    }
+    this.gl.activeTexture(this.gl.TEXTURE0);
+    this.gl.bindTexture(gl.TEXTURE_2D, this.textureAtlas);
     this.chunks.forEach((chunk) => {
         chunk.draw(gl);
     });

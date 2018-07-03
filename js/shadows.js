@@ -68,6 +68,10 @@ ShadowRenderer.prototype.setUniforms = function(shader, isDrawing) {
     }
 };
 
+ShadowRenderer.prototype.getShadowUniform = function(name) {
+    return this.shader.getUniformLocation(name);
+};
+
 ShadowRenderer.prototype.delete = function() {
     this.gl.deleteFramebuffer(this.framebuffer);
     this.gl.deleteTexture(this.shadowMap);

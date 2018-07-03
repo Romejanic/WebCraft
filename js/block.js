@@ -5,6 +5,8 @@ const blocks = Array(255); {
     new Block(4, "water", 8);
     new Block(5, "tall_grass", 7);
 
+    blocks[5].transparent = true;
+
     blocks[3].getIcon = function(face) {
         if(face == 2) {
             return 2;
