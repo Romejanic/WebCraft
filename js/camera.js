@@ -9,8 +9,15 @@ function Camera(x, y, z) {
     this.viewMat = mat4.create();
 }
 
-Camera.prototype.update = function() {
-    // update camera position/rotation
+Camera.prototype.update = function(delta) {
+    var speed = 10.0 * delta;
+    
+    if(input.isKeyDown(KEY_W)) {
+        this.position[2] -= speed;
+    }
+    if(input.isKeyDown(KEY_S)) {
+        this.position[2] += speed;
+    }
 };
 
 Camera.prototype.updateMatrices = function(w, h) {
