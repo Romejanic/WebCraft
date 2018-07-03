@@ -1,15 +1,21 @@
 const blocks = Array(255); {
-    new Block(1, "stone");
+    new Block(1, "dirt");
 }
 
-function Block(id, name) {
+function Block(id, name, icon) {
     this.id = id;
     this.name = name;
+    this.icon = icon || 0;
 
     assert(id !== 0, "Block cannot have the ID 0!");
     assert(!blocks[id], "A block with ID " + id + " is already registered!");
     blocks[id] = this;
 }
+
+Block.prototype.setIcon = function(icon) {
+    this.icon = icon;
+    return this;
+};
 
 Block.prototype.isAir = function() {
     return this.id === 0;
@@ -27,6 +33,10 @@ Block.prototype.isFaceCulled = function(x, y, z, world, face) {
     return cb && cb.isOpaque();
 };
 
+Block.prototype.getIcon = function(face) {
+    return this.icon;
+};
+
 Block.prototype.getWaveAmount = function(u, v) {
     return 0; // for now
 };
@@ -36,10 +46,11 @@ Block.prototype.render = function(vertices, world, x, y, z) {
         if(this.isFaceCulled(x, y, z, world, FACING[f])) {
             continue;
         }
-        var uMin = 0;
-        var uMax = 1;
-        var vMin = 0;
-        var vMax = 1;
+        var icon = this.getIcon(f);
+        var uMin = (icon % 16) / 16;
+        var uMax = uMin + (1 / 16);
+        var vMin = Math.floor(icon / 16) / 16;
+        var vMax = vMin + (1 / 16);
         switch(f) {
 			case 2:				
 				vertices.push(x + 0.5);

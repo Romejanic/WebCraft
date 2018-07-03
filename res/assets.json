@@ -13,6 +13,6 @@
     {
         "id": "terrain_atlas",
         "type": "texture",
-        "url": "/res/textures/giggidy.jpg"
+        "url": "/res/textures/atlas_default.png"
     }
 ]
