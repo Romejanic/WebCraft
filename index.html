@@ -6,6 +6,19 @@
 
     <script src="js/main.js"></script>
     <script src="js/chunk.js"></script>
+
+    <script type="shader/vertex" id="test_vs">
+    attribute vec3 vertex;
+
+    void main() {
+        gl_Position = vec4(vertex, 1.);
+    }
+    </script>
+    <script type="shader/fragment" id="test_fs">
+    void main() {
+        gl_FragColor = vec4(1., .2, .2, 1.);
+    }
+    </script>
 </head>
 <body>
     <canvas id="main"></canvas>
