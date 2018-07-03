@@ -11,21 +11,6 @@
     <script src="js/camera.js"></script>
     <script src="js/input.js"></script>
     <script src="js/main.js"></script>
-
-    <script type="shader/vertex" id="test_vs">
-    attribute vec3 vertex;
-    uniform mat4 projMat;
-    uniform mat4 viewMat;
-
-    void main() {
-        gl_Position = projMat * viewMat * vec4(vertex, 1.);
-    }
-    </script>
-    <script type="shader/fragment" id="test_fs">
-    void main() {
-        gl_FragColor = vec4(1., .2, .2, 1.);
-    }
-    </script>
 </head>
 <body>
     <canvas id="main"></canvas>
