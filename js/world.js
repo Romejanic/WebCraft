@@ -36,12 +36,12 @@ World.prototype.setBlock = function(x, y, z, block) {
 }
 
 World.prototype.isBlockAir = function(x, y, z) {
-    return typeof this.getBlock(x, y, z) !== "undefined";
+    return x < 0 || y < 0 || z < 0 || x >= this.width || y >= this.height || z >= this.depth || typeof this.getBlock(x, y, z) === "undefined";
 }
 
 World.prototype.getHeight = function(x, z) {
-    var y = this.height;
-    while(y > 0 && !this.isBlockAir(x, y, z)) {
+    var y = this.height - 1;
+    while(y > 0 && this.isBlockAir(x, y, z)) {
         y--;
     }
     return y;
@@ -50,10 +50,11 @@ World.prototype.getHeight = function(x, z) {
 World.prototype.generate = function() {
     var noiseGen = new SimplexNoise();
 
-    const BLOCK_DIRT  = blocks[1];
-    const BLOCK_STONE = blocks[2];
-    const BLOCK_GRASS = blocks[3];
-    const BLOCK_WATER = blocks[4];
+    const BLOCK_DIRT       = blocks[1];
+    const BLOCK_STONE      = blocks[2];
+    const BLOCK_GRASS      = blocks[3];
+    const BLOCK_WATER      = blocks[4];
+    const BLOCK_TALL_GRASS = blocks[5];
 
     var seaLevel = this.height / 2;
     var heightDiff = 3;
@@ -73,6 +74,15 @@ World.prototype.generate = function() {
                     this.setBlock(x, y, z, BLOCK_STONE);
                 }
             }
+        }
+    }
+
+    for(var i = 0; i < 2000; i++) {
+        var x = Math.floor(Math.random() * this.width);
+        var z = Math.floor(Math.random() * this.depth);
+        var y = this.getHeight(x, z) + 1;
+        if(this.isBlockAir(x, y, z)) {
+            this.setBlock(x, y, z, BLOCK_TALL_GRASS);
         }
     }
 
