@@ -1,11 +1,22 @@
 const input = {
     keys: {},
-    init: function(canvas) {
+    mouseX: 0,
+    mouseY: 0,
+    mouseDX: 0,
+    mouseDY: 0,
+
+    init: function() {
         document.addEventListener("keydown", (e) => {
             input.keys[e.keyCode] = true;
         });
         document.addEventListener("keyup", (e) => {
             delete input.keys[e.keyCode];
+        });
+        document.addEventListener("mousemove", (e) => {
+            input.mouseDX = e.pageX - input.mouseX;
+            input.mouseDY = e.pageY - input.mouseY;
+            input.mouseX  = e.pageX;
+            input.mouseY  = e.pageY;
         });
     },
     

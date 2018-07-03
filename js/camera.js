@@ -10,8 +10,11 @@ function Camera(x, y, z) {
 }
 
 Camera.prototype.update = function(delta) {
+    var rotSpeed = 45.0 * delta;
+    this.rotation[0] += input.mouseDY * rotSpeed;
+    this.rotation[1] += input.mouseDX * rotSpeed;
+
     var speed = 10.0 * delta;
-    
     if(input.isKeyDown(KEY_W)) {
         this.position[2] -= speed;
     }

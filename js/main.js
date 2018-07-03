@@ -38,8 +38,8 @@ const game = {
         this.chunk = new Chunk(gl, 0, 0);
         this.shader = new Shader(gl, "test");
 
+        input.init();
         window.addEventListener("unload", this.destroy);
-        input.init(this.canvas);
         this.updateLoop = setInterval(this.update, 1000/gameUpdateRate);
         this.requestRenderFrame();
     },
