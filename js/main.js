@@ -4,6 +4,8 @@ const game = {
     canvas: undefined,
     gl: undefined,
 
+    chunk: undefined,
+
     init: function() {
         this.canvas = document.getElementById("main");
         if(!this.canvas) {
@@ -23,6 +25,8 @@ const game = {
     },
 
     startGame: function() {
+        this.chunk = new Chunk(this.gl, 0, 0);
+
         window.addEventListener("unload", this.destroy);
         this.updateLoop = setInterval(this.update, 1000/gameUpdateRate);
         this.requestRenderFrame();
@@ -32,18 +36,16 @@ const game = {
         // game update code goes here
     },
 
-    renderFrame: function() {
-        let gl = game.gl;
-
-        var r = 0.5 * Math.sin(Date.now() / 500) + 0.5;
-        var g = 0.5 * Math.cos(Date.now() / 500) + 0.5;
-
-        gl.clearColor(r, g, 0.9, 1.0);
+    renderFrame: function(gl) {
+        gl.clearColor(0.4, 0.6, 0.9, 1.0);
         gl.clear(gl.COLOR_BUFFER_BIT);
+
+        game.chunk.draw(gl);
     },
 
     destroy: function() {
-        // cleanup WebGL stuff
+        this.chunk.destroy();
+        
         if(game.updateLoop) {
             clearInterval(game.updateLoop);
         }
@@ -53,7 +55,7 @@ const game = {
     },
 
     requestRenderFrame: function() {
-        game.renderFrame();
+        game.renderFrame(game.gl);
         game.renderLoop = requestAnimationFrame(game.requestRenderFrame);
     }
 };
