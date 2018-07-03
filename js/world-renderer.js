@@ -24,11 +24,14 @@ function WorldRenderer(gl, world) {
 WorldRenderer.prototype.preRender = function(camera) {
     this.shader.bind();
     this.gl.uniformMatrix4fv(this.shader.getUniformLocation("projMat"), false, camera.projMat);
-    this.gl.uniformMatrix4fv(this.shader.getUniformLocation("projMat"), false, camera.viewMat);
+    this.gl.uniformMatrix4fv(this.shader.getUniformLocation("viewMat"), false, camera.viewMat);
 };
 
 WorldRenderer.prototype.render = function(gl) {
+    var modelMat = mat4.create();
     this.chunks.forEach((chunk) => {
+        mat4.fromTranslation(modelMat, [chunk.x * 2, chunk.z * 2, 0]);
+        gl.uniformMatrix4fv(this.shader.getUniformLocation("modelMat"), false, modelMat);
         chunk.draw(gl);
     });
     this.shader.unbind();
