@@ -1,10 +1,10 @@
 const input = {
     keys: {},
     init: function(canvas) {
-        canvas.addEventListener("keydown", (e) => {
+        document.addEventListener("keydown", (e) => {
             input.keys[e.keyCode] = true;
         });
-        canvas.addEventListener("keyup", (e) => {
+        document.addEventListener("keyup", (e) => {
             delete input.keys[e.keyCode];
         });
     },

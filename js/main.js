@@ -39,14 +39,14 @@ const game = {
         this.shader = new Shader(gl, "test");
 
         window.addEventListener("unload", this.destroy);
-        input.init();
+        input.init(this.canvas);
         this.updateLoop = setInterval(this.update, 1000/gameUpdateRate);
         this.requestRenderFrame();
     },
 
     update: function() {
         let delta = 1 / gameUpdateRate;
-        this.camera.update(delta);
+        game.camera.update(delta);
     },
 
     renderFrame: function(gl, w, h) {
