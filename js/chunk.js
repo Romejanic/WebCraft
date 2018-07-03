@@ -9,24 +9,27 @@ function Chunk(gl, world, x, z) {
 }
 
 Chunk.prototype.generateMesh = function(gl) {
-    var vertices = Array();
-    for(var ox = 0; ox < CHUNK_WIDTH; ox++) {
-        for(var oz = 0; oz < CHUNK_DEPTH; oz++) {
-            for(var y = 0; y < this.world.height; y++) {
-                var x = (this.x * CHUNK_WIDTH) + ox;
-                var z = (this.z * CHUNK_DEPTH) + oz;
-                var block = this.world.getBlock(x, y, z);
-                if(block) {
-                    block.render(vertices, this.world, x, y, z);
+    var promise = new Promise((resolve) => {
+        var vertices = Array();
+        for(var ox = 0; ox < CHUNK_WIDTH; ox++) {
+            for(var oz = 0; oz < CHUNK_DEPTH; oz++) {
+                for(var y = 0; y < this.world.height; y++) {
+                    var x = (this.x * CHUNK_WIDTH) + ox;
+                    var z = (this.z * CHUNK_DEPTH) + oz;
+                    var block = this.world.getBlock(x, y, z);
+                    if(block) {
+                        block.render(vertices, this.world, x, y, z);
+                    }
                 }
             }
         }
-    }
-
-    gl.bindBuffer(gl.ARRAY_BUFFER, this.vbo);
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
-    gl.bindBuffer(gl.ARRAY_BUFFER, null);
-    this.elementCount = vertices.length / 8;
+        resolve(vertices);
+    }).then((vertices) =>  {
+        gl.bindBuffer(gl.ARRAY_BUFFER, this.vbo);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
+        gl.bindBuffer(gl.ARRAY_BUFFER, null);
+        this.elementCount = vertices.length / 8;
+    });
 };
 
 Chunk.prototype.draw = function(gl) {

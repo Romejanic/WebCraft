@@ -40,17 +40,30 @@ World.prototype.isBlockAir = function(x, y, z) {
 }
 
 World.prototype.generate = function() {
+    var noiseGen = new SimplexNoise();
+
+    const BLOCK_DIRT  = blocks[1];
+    const BLOCK_STONE = blocks[2];
+    const BLOCK_GRASS = blocks[3];
+
     var seaLevel = this.height / 2;
-    var grassLevel = seaLevel + 3;
+    var heightDiff = 3;
     for(var x = 0; x < this.width; x++) {
-        for(var y = 0; y < this.height; y++) {
-            for(var z = 0; z < this.depth; z++) {
+        for(var z = 0; z < this.depth; z++) {
+            var sl  = seaLevel + (10 * noiseGen.noise2D(x / 50, z / 50));
+            var top = Math.floor(sl + heightDiff * noiseGen.noise2D(x / 25, z / 25));
+            var dg  = 2 + 3 * (0.5 * noiseGen.noise2D(x / 15, z / 15) + 0.5);
+            for(var y = 0; y < this.height; y++) {
                 if(y < seaLevel) {
-                    this.setBlock(x, y, z, blocks[2]);
-                } else if(y < grassLevel) {
-                    this.setBlock(x, y, z, blocks[1]);
-                } else if(y == grassLevel) {
-                    this.setBlock(x, y, z, blocks[3]);
+                    this.setBlock(x, y, z, BLOCK_DIRT);
+                } if(y > top) {
+                    break;
+                } else if(y == top) {
+                    this.setBlock(x, y, z, BLOCK_GRASS);
+                } else if(y > top - dg) {
+                    this.setBlock(x, y, z, BLOCK_DIRT);
+                } else {
+                    this.setBlock(x, y, z, BLOCK_STONE);
                 }
             }
         }
