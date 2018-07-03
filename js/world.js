@@ -32,7 +32,7 @@ World.prototype.setBlock = function(x, y, z, block) {
     if(idx < 0) {
         return;
     }
-    this.blocks[idx] = block.id;
+    this.blocks[idx] = !block ? 0 : block.id;
 }
 
 World.prototype.isBlockAir = function(x, y, z) {
@@ -40,14 +40,19 @@ World.prototype.isBlockAir = function(x, y, z) {
 }
 
 World.prototype.generate = function() {
-    var seaLevel  = this.height / 2;
-    var deviation = this.height / 8;
+    var r  = 80;
+    var r2 = r * r;
+    var cx = this.width / 2;
+    var cy = this.height / 2;
     for(var x = 0; x < this.width; x++) {
         for(var y = 0; y < this.height; y++) {
             for(var z = 0; z < this.depth; z++) {
-                var idx  = (z * this.height + (y * this.width)) + x;
-                var yLvl = seaLevel + deviation * Math.random();
-                this.blocks[idx] = y <= yLvl ? 1 : 0;
+                var dst2 = (x-cx)*(x-cx) + (y-cy)*(y-cy);
+                if(dst2 <= r2) {
+                    this.setBlock(x, y, z, blocks[0]);
+                } else {
+                    this.setBlock(x, y, z, blocks[1]);
+                }
             }
         }
     }

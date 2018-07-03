@@ -33,30 +33,335 @@ Block.prototype.render = function(vertices, world, x, y, z) {
             continue;
         }
         switch(f) {
-        case 4:
-            vertices.push(x - 0.5);
-            vertices.push(y - 0.5);
-            vertices.push(z - 0.5);
-    
-            vertices.push(x + 0.5);
-            vertices.push(y - 0.5);
-            vertices.push(z - 0.5);
-    
-            vertices.push(x - 0.5);
-            vertices.push(y + 0.5);
-            vertices.push(z - 0.5);
+			case 2:				
+				vertices.push(x + 0.5);
+				vertices.push(y + 0.5);
+				vertices.push(z + 0.5);
+				//vertices.push(uMax);
+				//vertices.push(vMin);
+				//vertices.push(block.id);
+				//vertices.push(face.id);
+				//vertices.push((block.getWaveAmount(uMax, vMin));
 
-            vertices.push(x - 0.5);
-            vertices.push(y + 0.5);
-            vertices.push(z - 0.5);
+				vertices.push(x - 0.5);
+				vertices.push(y + 0.5);
+				vertices.push(z - 0.5);
+				//vertices.push(uMin);
+				//vertices.push(vMax);
+				//vertices.push(block.id);
+				//vertices.push(face.id);
+				//vertices.push(block.getWaveAmount(uMin, vMax));
 
-            vertices.push(x + 0.5);
-            vertices.push(y - 0.5);
-            vertices.push(z - 0.5);
+				vertices.push(x - 0.5);
+				vertices.push(y + 0.5);
+				vertices.push(z + 0.5);
+				//vertices.push(uMin);
+				//vertices.push(vMin);
+				//vertices.push(block.id);
+				//vertices.push(face.id);
+				//vertices.push(block.getWaveAmount(uMin, vMin));
 
-            vertices.push(x + 0.5);
-            vertices.push(y + 0.5);
-            vertices.push(z - 0.5);
+				vertices.push(x + 0.5);
+				vertices.push(y + 0.5);
+				vertices.push(z + 0.5);
+				//vertices.push(uMax);
+				//vertices.push(vMin);
+				//vertices.push(block.id);
+				//vertices.push(face.id);
+				//vertices.push((block.getWaveAmount(uMax, vMin));
+
+				vertices.push(x + 0.5);
+				vertices.push(y + 0.5);
+				vertices.push(z - 0.5);
+				//vertices.push(uMax);
+				//vertices.push(vMax);
+				//vertices.push(block.id);
+				//vertices.push(face.id);
+				//vertices.push(block.getWaveAmount(uMax, vMax));
+
+				vertices.push(x - 0.5);
+				vertices.push(y + 0.5);
+				vertices.push(z - 0.5);
+				//vertices.push(uMin);
+				//vertices.push(vMax);
+				//vertices.push(block.id);
+				//vertices.push(face.id);
+				//vertices.push(block.getWaveAmount(uMin, vMax));
+				break;
+			case 3:
+				vertices.push(x - 0.5);
+				vertices.push(y - 0.5);
+				vertices.push(z + 0.5);
+				//vertices.push(uMin);
+				//vertices.push(vMin);
+				//vertices.push(block.id);
+				//vertices.push(face.id);
+				//vertices.push(block.getWaveAmount(uMin, vMin));
+
+				vertices.push(x - 0.5);
+				vertices.push(y - 0.5);
+				vertices.push(z - 0.5);
+				//vertices.push(uMin);
+				//vertices.push(vMax);
+				//vertices.push(block.id);
+				//vertices.push(face.id);
+				//vertices.push(block.getWaveAmount(uMin, vMax));
+
+				vertices.push(x + 0.5);
+				vertices.push(y - 0.5);
+				vertices.push(z + 0.5);
+				//vertices.push(uMax);
+				//vertices.push(vMin);
+				//vertices.push(block.id);
+				//vertices.push(face.id);
+				//vertices.push((block.getWaveAmount(uMax, vMin));
+
+				vertices.push(x - 0.5);
+				vertices.push(y - 0.5);
+				vertices.push(z - 0.5);
+				//vertices.push(uMin);
+				//vertices.push(vMax);
+				//vertices.push(block.id);
+				//vertices.push(face.id);
+				//vertices.push(block.getWaveAmount(uMin, vMax));
+
+				vertices.push(x + 0.5);
+				vertices.push(y - 0.5);
+				vertices.push(z - 0.5);
+				//vertices.push(uMax);
+				//vertices.push(vMax);
+				//vertices.push(block.id);
+				//vertices.push(face.id);
+				//vertices.push(block.getWaveAmount(uMax, vMax));
+
+				vertices.push(x + 0.5);
+				vertices.push(y - 0.5);
+				vertices.push(z + 0.5);
+				//vertices.push(uMax);
+				//vertices.push(vMin);
+				//vertices.push(block.id);
+				//vertices.push(face.id);
+				//vertices.push((block.getWaveAmount(uMax, vMin));
+				break;
+			case 1:
+				vertices.push(x - 0.5);
+				vertices.push(y + 0.5);
+				vertices.push(z - 0.5);
+				//vertices.push(uMin);
+				//vertices.push(vMin);
+				//vertices.push(block.id);
+				//vertices.push(face.id);
+				//vertices.push(block.getWaveAmount(uMin, vMin));
+
+				vertices.push(x - 0.5);
+				vertices.push(y - 0.5);
+				vertices.push(z - 0.5);
+				//vertices.push(uMin);
+				//vertices.push(vMax);
+				//vertices.push(block.id);
+				//vertices.push(face.id);
+				//vertices.push(block.getWaveAmount(uMin, vMax));
+
+				vertices.push(x - 0.5);
+				vertices.push(y - 0.5);
+				vertices.push(z + 0.5);
+				//vertices.push(uMax);
+				//vertices.push(vMax);
+				//vertices.push(block.id);
+				//vertices.push(face.id);
+				//vertices.push(block.getWaveAmount(uMax, vMax));
+
+				vertices.push(x - 0.5);
+				vertices.push(y + 0.5);
+				vertices.push(z - 0.5);
+				//vertices.push(uMin);
+				//vertices.push(vMin);
+				//vertices.push(block.id);
+				//vertices.push(face.id);
+				//vertices.push(block.getWaveAmount(uMin, vMin));
+
+				vertices.push(x - 0.5);
+				vertices.push(y - 0.5);
+				vertices.push(z + 0.5);
+				//vertices.push(uMax);
+				//vertices.push(vMax);
+				//vertices.push(block.id);
+				//vertices.push(face.id);
+				//vertices.push(block.getWaveAmount(uMax, vMax));
+
+				vertices.push(x - 0.5);
+				vertices.push(y + 0.5);
+				vertices.push(z + 0.5);
+				//vertices.push(uMax);
+				//vertices.push(vMin);
+				//vertices.push(block.id);
+				//vertices.push(face.id);
+				//vertices.push((block.getWaveAmount(uMax, vMin));
+				break;
+			case 0:
+				vertices.push(x + 0.5);
+				vertices.push(y - 0.5);
+				vertices.push(z + 0.5);
+				//vertices.push(uMax);
+				//vertices.push(vMax);
+				//vertices.push(block.id);
+				//vertices.push(face.id);
+				//vertices.push(block.getWaveAmount(uMax, vMax));
+
+				vertices.push(x + 0.5);
+				vertices.push(y - 0.5);
+				vertices.push(z - 0.5);
+				//vertices.push(uMin);
+				//vertices.push(vMax);
+				//vertices.push(block.id);
+				//vertices.push(face.id);
+				//vertices.push(block.getWaveAmount(uMin, vMax));
+
+				vertices.push(x + 0.5);
+				vertices.push(y + 0.5);
+				vertices.push(z - 0.5);
+				//vertices.push(uMin);
+				//vertices.push(vMin);
+				//vertices.push(block.id);
+				//vertices.push(face.id);
+				//vertices.push(block.getWaveAmount(uMin, vMin));
+
+				vertices.push(x + 0.5);
+				vertices.push(y + 0.5);
+				vertices.push(z + 0.5);
+				//vertices.push(uMax);
+				//vertices.push(vMin);
+				//vertices.push(block.id);
+				//vertices.push(face.id);
+				//vertices.push((block.getWaveAmount(uMax, vMin));
+
+				vertices.push(x + 0.5);
+				vertices.push(y - 0.5);
+				vertices.push(z + 0.5);
+				//vertices.push(uMax);
+				//vertices.push(vMax);
+				//vertices.push(block.id);
+				//vertices.push(face.id);
+				//vertices.push(block.getWaveAmount(uMax, vMax));
+
+				vertices.push(x + 0.5);
+				vertices.push(y + 0.5);
+				vertices.push(z - 0.5);
+				//vertices.push(uMin);
+				//vertices.push(vMin);
+				//vertices.push(block.id);
+				//vertices.push(face.id);
+				//vertices.push(block.getWaveAmount(uMin, vMin));
+				break;
+			case 4:
+				vertices.push(x - 0.5);
+				vertices.push(y + 0.5);
+				vertices.push(z + 0.5);
+				//vertices.push(uMin);
+				//vertices.push(vMin);
+				//vertices.push(block.id);
+				//vertices.push(face.id);
+				//vertices.push(block.getWaveAmount(uMin, vMin));
+
+				vertices.push(x - 0.5);
+				vertices.push(y - 0.5);
+				vertices.push(z + 0.5);
+				//vertices.push(uMin);
+				//vertices.push(vMax);
+				//vertices.push(block.id);
+				//vertices.push(face.id);
+				//vertices.push(block.getWaveAmount(uMin, vMax));
+
+				vertices.push(x + 0.5);
+				vertices.push(y + 0.5);
+				vertices.push(z + 0.5);
+				//vertices.push(uMax);
+				//vertices.push(vMin);
+				//vertices.push(block.id);
+				//vertices.push(face.id);
+				//vertices.push((block.getWaveAmount(uMax, vMin));
+
+				vertices.push(x - 0.5);
+				vertices.push(y - 0.5);
+				vertices.push(z + 0.5);
+				//vertices.push(uMin);
+				//vertices.push(vMax);
+				//vertices.push(block.id);
+				//vertices.push(face.id);
+				//vertices.push(block.getWaveAmount(uMin, vMax));
+
+				vertices.push(x + 0.5);
+				vertices.push(y - 0.5);
+				vertices.push(z + 0.5);
+				//vertices.push(uMax);
+				//vertices.push(vMax);
+				//vertices.push(block.id);
+				//vertices.push(face.id);
+				//vertices.push(block.getWaveAmount(uMax, vMax));
+
+				vertices.push(x + 0.5);
+				vertices.push(y + 0.5);
+				vertices.push(z + 0.5);
+				//vertices.push(uMax);
+				//vertices.push(vMin);
+				//vertices.push(block.id);
+				//vertices.push(face.id);
+				//vertices.push((block.getWaveAmount(uMax, vMin));
+				break;
+			case 5:
+				vertices.push(x + 0.5);
+				vertices.push(y + 0.5);
+				vertices.push(z - 0.5);
+				//vertices.push(uMax);
+				//vertices.push(vMin);
+				//vertices.push(block.id);
+				//vertices.push(face.id);
+				//vertices.push((block.getWaveAmount(uMax, vMin));
+
+				vertices.push(x - 0.5);
+				vertices.push(y - 0.5);
+				vertices.push(z - 0.5);
+				//vertices.push(uMin);
+				//vertices.push(vMax);
+				//vertices.push(block.id);
+				//vertices.push(face.id);
+				//vertices.push(block.getWaveAmount(uMin, vMax));
+
+				vertices.push(x - 0.5);
+				vertices.push(y + 0.5);
+				vertices.push(z - 0.5);
+				//vertices.push(uMin);
+				//vertices.push(vMin);
+				//vertices.push(block.id);
+				//vertices.push(face.id);
+				//vertices.push(block.getWaveAmount(uMin, vMin));
+
+				vertices.push(x + 0.5);
+				vertices.push(y + 0.5);
+				vertices.push(z - 0.5);
+				//vertices.push(uMax);
+				//vertices.push(vMin);
+				//vertices.push(block.id);
+				//vertices.push(face.id);
+				//vertices.push((block.getWaveAmount(uMax, vMin));
+
+				vertices.push(x + 0.5);
+				vertices.push(y - 0.5);
+				vertices.push(z - 0.5);
+				//vertices.push(uMax);
+				//vertices.push(vMax);
+				//vertices.push(block.id);
+				//vertices.push(face.id);
+				//vertices.push(block.getWaveAmount(uMax, vMax));
+
+				vertices.push(x - 0.5);
+				vertices.push(y - 0.5);
+				vertices.push(z - 0.5);
+				//vertices.push(uMin);
+				//vertices.push(vMax);
+				//vertices.push(block.id);
+				//vertices.push(face.id);
+				//vertices.push(block.getWaveAmount(uMin, vMax));
             break;
         default:
             break;;

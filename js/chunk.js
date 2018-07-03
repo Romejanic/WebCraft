@@ -13,8 +13,8 @@ Chunk.prototype.generateMesh = function(gl) {
     for(var ox = 0; ox < CHUNK_WIDTH; ox++) {
         for(var oz = 0; oz < CHUNK_DEPTH; oz++) {
             for(var y = 0; y < this.world.height; y++) {
-                var x = this.x * CHUNK_WIDTH + ox;
-                var z = this.z * CHUNK_DEPTH + oz;
+                var x = (this.x * CHUNK_WIDTH) + ox;
+                var z = (this.z * CHUNK_DEPTH) + oz;
                 var block = this.world.getBlock(x, y, z);
                 if(block) {
                     block.render(vertices, this.world, x, y, z);
