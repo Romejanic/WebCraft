@@ -2,6 +2,7 @@ function ShadowRenderer(gl, resolution) {
     this.gl = gl;
     this.enabled = true;
     this.resolution = resolution || 1024;
+    this.distance = 40;
     
     this.lightDir = vec3.fromValues(45, 30, -45);
     vec3.normalize(this.lightDir, this.lightDir);
@@ -39,7 +40,7 @@ function ShadowRenderer(gl, resolution) {
 ShadowRenderer.prototype.beginDrawing = function(camera) {
     mat4.identity(this.projMat);
     mat4.identity(this.viewMat);
-    mat4.ortho(this.projMat, -20, 20, -20, 20, -50, 50);
+    mat4.ortho(this.projMat, -this.distance, this.distance, -this.distance, this.distance, -this.distance * 4, this.distance);
     mat4.lookAt(this.viewMat, vec3.add(vec3.create(), camera.position, this.lightDir), camera.position, [0, -1, 0]);
 
     this.gl.bindTexture(this.gl.TEXTURE_2D, null);
