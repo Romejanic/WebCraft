@@ -28,10 +28,7 @@ WorldRenderer.prototype.preRender = function(camera) {
 };
 
 WorldRenderer.prototype.render = function(gl) {
-    var modelMat = mat4.create();
     this.chunks.forEach((chunk) => {
-        mat4.fromTranslation(modelMat, [chunk.x * 2, chunk.z * 2, 0]);
-        gl.uniformMatrix4fv(this.shader.getUniformLocation("modelMat"), false, modelMat);
         chunk.draw(gl);
     });
     this.shader.unbind();

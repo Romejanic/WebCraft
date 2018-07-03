@@ -32,10 +32,10 @@ function Face(x, y, z) {
     this.direction = vec3.fromValues(x, y, z);
 }
 const FACING = [
-    new Face(1, 0, 0),
-    new Face(-1, 0, 0),
-    new Face(0, 1, 0),
-    new Face(0, -1, 0),
-    new Face(0, 0, 1),
-    new Face(0, 0, -1)
+    new Face(1, 0, 0),  // 0 +X
+    new Face(-1, 0, 0), // 1 -X
+    new Face(0, 1, 0),  // 2 +Y
+    new Face(0, -1, 0), // 3 -Y
+    new Face(0, 0, 1),  // 4 +Z
+    new Face(0, 0, -1)  // 5 -Z
 ];

@@ -9,16 +9,17 @@ function World(width, height, depth) {
 
 World.prototype.getBlockIndex = function(x, y, z) {
     if(x < 0 || y < 0 || z < 0 || x >= this.width || y >= this.height || z >= this.depth) {
-        return -1;
+        return undefined;
     }
     var idx = (z * this.height + (y * this.width)) + x;
     if(idx < 0 || idx >= this.blocks.length) {
-        return -1;
+        return undefined;
     }
     return idx;
 }
 
 World.prototype.getBlock = function(x, y, z) {
+    x = Math.floor(x), y = Math.floor(y), z = Math.floor(z);
     var idx = this.getBlockIndex(x, y, z);
     if(idx < 0) {
         return -1;
