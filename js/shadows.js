@@ -1,8 +1,8 @@
-function ShadowRenderer(gl, resolution) {
+function ShadowRenderer(gl, resolution, distance) {
     this.gl = gl;
     this.enabled = true;
     this.resolution = resolution || 1024;
-    this.distance = 40;
+    this.distance = distance || 40;
     
     this.lightDir = vec3.fromValues(45, 30, -45);
     vec3.normalize(this.lightDir, this.lightDir);
@@ -61,6 +61,7 @@ ShadowRenderer.prototype.setUniforms = function(shader, isDrawing) {
     this.gl.uniformMatrix4fv(shader.getUniformLocation("shadowProj"), false, this.projMat);
     this.gl.uniformMatrix4fv(shader.getUniformLocation("shadowView"), false, this.viewMat);
     if(!isDrawing) {
+        this.gl.uniform1f(shader.getUniformLocation("shadowDist"), this.distance);
         this.gl.uniform1i(shader.getUniformLocation("shadowmap"), 1);
         this.gl.activeTexture(this.gl.TEXTURE1);
         this.gl.bindTexture(this.gl.TEXTURE_2D, this.shadowMap);

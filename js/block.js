@@ -82,15 +82,11 @@ Block.prototype.render = function(vertices, world, x, y, z) {
         if(this.isFaceCulled(x, y, z, world, FACING[f])) {
             continue;
         }
-        // var icon = this.getIcon(f);
-        // var uMin = (icon % 16) / 16;
-        // var uMax = uMin + (1 / 16);
-        // var vMin = Math.floor(icon / 16) / 16;
-        // var vMax = vMin + (1 / 16);
-        var uMin = 0;
-        var uMax = 1;
-        var vMin = 0;
-        var vMax = 1;
+        var icon = this.getIcon(f);
+        var uMin = (icon % 16) / 16;
+        var uMax = uMin + (1 / 16);
+        var vMin = Math.floor(icon / 16) / 16;
+        var vMax = vMin + (1 / 16);
         switch(f) {
 			case 2:				
 				vertices.push(x + 0.5);

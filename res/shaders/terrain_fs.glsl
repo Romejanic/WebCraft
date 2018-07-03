@@ -11,8 +11,8 @@ const vec3 lightDirection = normalize(vec3(45.,30.,-45.));
 
 void main() {
     float shadow = 1.;
-    if(texture2D(shadowmap, v_shadow.xy).r < (v_shadow.z - .003)) {
-        shadow = 0.;
+    if(texture2D(shadowmap, v_shadow.xy).r < (v_shadow.z - .0005)) {
+        shadow = v_shadow.w;
     }
 
     vec3 normal = normalize(v_normal);

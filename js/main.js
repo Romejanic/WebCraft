@@ -42,7 +42,7 @@ const game = {
         gl.cullFace(gl.BACK);
 
         this.worldRenderer = new WorldRenderer(gl, this.world);
-        this.shadows = new ShadowRenderer(gl, 2048);
+        this.shadows = new ShadowRenderer(gl, 2048, 50.0);
 
         input.init(this.canvas);
         window.addEventListener("unload", this.destroy);
