@@ -39,7 +39,7 @@ const game = {
         gl.cullFace(gl.BACK);
 
         this.chunk = new Chunk(gl, 0, 0);
-        this.shader = new Shader(gl, "test");
+        this.shader = new Shader(gl, "terrain");
 
         input.init(this.canvas);
         window.addEventListener("unload", this.destroy);
