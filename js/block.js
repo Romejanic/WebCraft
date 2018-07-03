@@ -2,6 +2,7 @@ const blocks = Array(255); {
     new Block(1, "dirt");
     new Block(2, "stone", 3);
     new Block(3, "grass");
+    new Block(4, "water", 8);
 
     blocks[3].getIcon = function(face) {
         if(face == 2) {
@@ -11,6 +12,29 @@ const blocks = Array(255); {
         } else {
             return 1;
         }
+    };
+    blocks[4].isFaceCulled = function(x, y, z, world, face) {
+        var adjacentFaces = [0, 1, 4, 5];
+        if(face == FACING[2]) {
+            if(world.getBlock(x, y + 1, z) == this) {
+                return true;
+            } else {
+                for(var f = 0; f < adjacentFaces.length; f++) {
+                    var cx = x + FACING[adjacentFaces[f]].direction[0];
+                    var cy = y + 1;
+                    var cz = z + FACING[adjacentFaces[f]].direction[2];
+                    if(world.getBlock(cx, cy, cz) == this) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+        }
+        var cx = x + face.direction[0];
+        var cy = y + face.direction[1];
+        var cz = z + face.direction[2];
+        var cb = world.getBlock(cx, cy, cz);
+        return world.getBlock(x, y + 1, z) == this || (cb && cb.isOpaque());
     };
 }
 

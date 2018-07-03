@@ -39,12 +39,21 @@ World.prototype.isBlockAir = function(x, y, z) {
     return typeof this.getBlock(x, y, z) !== "undefined";
 }
 
+World.prototype.getHeight = function(x, z) {
+    var y = this.height;
+    while(y > 0 && !this.isBlockAir(x, y, z)) {
+        y--;
+    }
+    return y;
+};
+
 World.prototype.generate = function() {
     var noiseGen = new SimplexNoise();
 
     const BLOCK_DIRT  = blocks[1];
     const BLOCK_STONE = blocks[2];
     const BLOCK_GRASS = blocks[3];
+    const BLOCK_WATER = blocks[4];
 
     var seaLevel = this.height / 2;
     var heightDiff = 3;
@@ -54,9 +63,7 @@ World.prototype.generate = function() {
             var top = Math.floor(sl + heightDiff * noiseGen.noise2D(x / 25, z / 25));
             var dg  = 2 + 3 * (0.5 * noiseGen.noise2D(x / 15, z / 15) + 0.5);
             for(var y = 0; y < this.height; y++) {
-                if(y < seaLevel) {
-                    this.setBlock(x, y, z, BLOCK_DIRT);
-                } if(y > top) {
+                if(y > top) {
                     break;
                 } else if(y == top) {
                     this.setBlock(x, y, z, BLOCK_GRASS);
@@ -68,4 +75,16 @@ World.prototype.generate = function() {
             }
         }
     }
+
+    // for(var x = 0; x < this.width; x++) {
+    //     for(var z = 0; z < this.depth; z++) {
+    //         var y = this.getHeight(x, z);
+    //         if(y < seaLevel) {
+    //             this.setBlock(x, y, z, BLOCK_DIRT);
+    //             for(y++; y <= seaLevel; y++) {
+    //                 this.setBlock(x, y, z, BLOCK_WATER);
+    //             }
+    //         }
+    //     }
+    // }
 };
