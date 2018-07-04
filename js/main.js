@@ -4,6 +4,7 @@ const game = {
     canvas: undefined,
     gl: undefined,
     renderScale: 1.0,
+    time: 0,
 
     world: undefined,
     camera: new Camera(128, 150, 128),
@@ -48,11 +49,14 @@ const game = {
         window.addEventListener("unload", this.destroy);
         this.updateLoop = setInterval(this.update, 1000/gameUpdateRate);
         this.requestRenderFrame();
+
+        this.startTime = Date.now();
     },
 
     update: function() {
         let delta = 1 / gameUpdateRate;
         game.camera.update(delta);
+        game.time += delta;
 
         input.mouseDX = 0, input.mouseDY = 0;
     },
@@ -60,14 +64,14 @@ const game = {
     renderFrame: function(gl, w, h) {
         this.camera.updateMatrices(w, h);
 
-        this.shadows.beginDrawing(this.camera);
-        this.worldRenderer.preRender(this.camera, this.shadows, true);
+        this.shadows.beginDrawing(this.camera, this.time);
+        this.worldRenderer.preRender(this.camera, this.shadows, true, this.time);
         this.worldRenderer.render(gl, true);
         this.shadows.endDrawing();
 
         gl.viewport(0, 0, w, h);
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-        this.worldRenderer.preRender(this.camera, this.shadows, false);
+        this.worldRenderer.preRender(this.camera, this.shadows, false, this.time);
         this.worldRenderer.render(gl, false);
     },
 

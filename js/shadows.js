@@ -17,7 +17,9 @@ function ShadowRenderer(gl, resolution, distance) {
     this.framebuffer = gl.createFramebuffer();
     this.shadowMap   = gl.createTexture();
     this.shader      = new Shader(gl, "shadow", {
-        "vertex": 0
+        "vertex": 0,
+        "texCoords": 1,
+        "data": 2
     });
 
     this.projMat = mat4.create();
@@ -37,7 +39,7 @@ function ShadowRenderer(gl, resolution, distance) {
     }
 }
 
-ShadowRenderer.prototype.beginDrawing = function(camera) {
+ShadowRenderer.prototype.beginDrawing = function(camera, time) {
     mat4.identity(this.projMat);
     mat4.identity(this.viewMat);
     mat4.ortho(this.projMat, -this.distance, this.distance, -this.distance, this.distance, -this.distance * 4, this.distance);
@@ -49,7 +51,7 @@ ShadowRenderer.prototype.beginDrawing = function(camera) {
     this.gl.clear(this.gl.DEPTH_BUFFER_BIT);
 
     this.shader.bind();
-    this.setUniforms(this.shader, true);
+    this.setUniforms(this.shader, true, time);
 };
 
 ShadowRenderer.prototype.endDrawing = function() {
@@ -57,7 +59,7 @@ ShadowRenderer.prototype.endDrawing = function() {
     this.gl.bindFramebuffer(this.gl.FRAMEBUFFER, null);
 };
 
-ShadowRenderer.prototype.setUniforms = function(shader, isDrawing) {
+ShadowRenderer.prototype.setUniforms = function(shader, isDrawing, time) {
     this.gl.uniformMatrix4fv(shader.getUniformLocation("shadowProj"), false, this.projMat);
     this.gl.uniformMatrix4fv(shader.getUniformLocation("shadowView"), false, this.viewMat);
     if(!isDrawing) {
@@ -65,6 +67,8 @@ ShadowRenderer.prototype.setUniforms = function(shader, isDrawing) {
         this.gl.uniform1i(shader.getUniformLocation("shadowmap"), 1);
         this.gl.activeTexture(this.gl.TEXTURE1);
         this.gl.bindTexture(this.gl.TEXTURE_2D, this.shadowMap);
+    } else {
+        this.gl.uniform1f(shader.getUniformLocation("time"), time);
     }
 };
 

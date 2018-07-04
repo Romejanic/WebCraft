@@ -8,6 +8,10 @@ const blocks = Array(255); {
     // TALL GRASS
     blocks[5].transparent = true;
     blocks[5].renderQueue = 1;
+    blocks[5].waveAmount  = 0.25;
+    blocks[5].getWaveAmount = function(u, v) {
+        return (1 - v) * this.waveAmount;
+    };
     blocks[5].render = function(vertices, world, x, y, z) {
         var surrounded = true;
 		for(var i = 0; i < FACING.length; i++) {
@@ -219,7 +223,7 @@ Block.prototype.getIcon = function(face) {
 };
 
 Block.prototype.getWaveAmount = function(u, v) {
-    return 0; // for now
+    return this.waveAmount || 0; // for now
 };
 
 Block.prototype.render = function(vertices, world, x, y, z) {
