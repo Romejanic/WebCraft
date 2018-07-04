@@ -8,7 +8,7 @@ const blocks = Array(255); {
     // TALL GRASS
     blocks[5].transparent = true;
     blocks[5].renderQueue = 1;
-    blocks[5].waveAmount  = 0.25;
+    blocks[5].waveAmount  = 1.5;
     blocks[5].getWaveAmount = function(u, v) {
         return (1 - v) * this.waveAmount;
     };
@@ -180,7 +180,7 @@ const blocks = Array(255); {
         var cy = y + face.direction[1];
         var cz = z + face.direction[2];
         var cb = world.getBlock(cx, cy, cz);
-        return world.getBlock(x, y + 1, z) == this || (cb && cb.isOpaque());
+        return cb == this || (cb && cb.isOpaque());
     };
 }
 
