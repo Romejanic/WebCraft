@@ -6,6 +6,7 @@ attribute vec3 data; // x - block id, y - face, z - wave amount
 
 uniform mat4 projMat;
 uniform mat4 viewMat;
+uniform vec3 cameraPos;
 uniform mat4 shadowProj;
 uniform mat4 shadowView;
 uniform float shadowDist;
@@ -41,13 +42,17 @@ vec3 applyDistortion(vec3 vertex, float amount, float viewDist){
 }
 
 void main() {
-    vec4 worldPos = vec4(applyDistortion(vertex, data.z, 0.), 1.);
+    vec4 worldPos = vec4(vertex, 1.);
+    float camDist = length(cameraPos - vertex);
+    if(data.z > 0.) {
+        worldPos.xyz = applyDistortion(worldPos.xyz, data.z, camDist);
+    }
     vec4 eyeSpace = viewMat * worldPos;
     gl_Position   = projMat * eyeSpace;
     v_texCoords   = texCoords;
     v_normal      = normals[int(data.y)];
 
-    float camDist = length(eyeSpace);
+    camDist = length(eyeSpace);
     vec4 shadowCoords = shadowProj * shadowView * worldPos;
     v_shadow   = (shadowCoords/shadowCoords.w) * 0.5 + 0.5;
     v_shadow.w = clamp((camDist-(shadowDist-shadowFade))/shadowFade,0.,1.);
