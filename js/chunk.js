@@ -10,7 +10,10 @@ function Chunk(gl, world, x, z) {
 
 Chunk.prototype.generateMesh = function(gl) {
     var promise = new Promise((resolve) => {
-        var vertices = Array();
+        var vertices = Array(RENDER_QUEUES.length);
+        for(var i = 0; i < vertices.length; i++) {
+            vertices[i] = Array();
+        }
         for(var ox = 0; ox < CHUNK_WIDTH; ox++) {
             for(var oz = 0; oz < CHUNK_DEPTH; oz++) {
                 for(var y = 0; y < this.world.height; y++) {
@@ -18,24 +21,42 @@ Chunk.prototype.generateMesh = function(gl) {
                     var z = (this.z * CHUNK_DEPTH) + oz;
                     var block = this.world.getBlock(x, y, z);
                     if(block) {
-                        block.render(vertices, this.world, x, y, z);
+                        block.render(vertices[block.getRenderQueue()], this.world, x, y, z);
                     }
                 }
             }
         }
-        resolve(vertices);
-    }).then((vertices) =>  {
+        var finalList = [];
+        var vertexOffsets = Array(RENDER_QUEUES.length);
+        var currentOffset = 0;
+        vertices.forEach((arr, i) => {
+            finalList = finalList.concat(arr);
+            var count = arr.length / 8;
+            vertexOffsets[i] = {
+                offset: currentOffset,
+                length: count
+            };
+            currentOffset += count;
+        });
+
+        resolve({ vertices: finalList, offsets: vertexOffsets });
+    }).then((data) =>  {
         gl.bindBuffer(gl.ARRAY_BUFFER, this.vbo);
-        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(data.vertices), gl.STATIC_DRAW);
         gl.bindBuffer(gl.ARRAY_BUFFER, null);
-        this.elementCount = vertices.length / 8;
+        this.offsets = data.offsets;
     });
 };
 
-Chunk.prototype.draw = function(gl) {
-    if(!this.elementCount || this.elementCount <= 0) {
+Chunk.prototype.draw = function(gl, queue) {
+    if(!this.vbo || !this.offsets) {
         return;
     }
+    var offset = this.offsets[queue];
+    if(!offset || offset.length <= 0) {
+        return;
+    }
+
     gl.bindBuffer(gl.ARRAY_BUFFER, this.vbo);
     gl.vertexAttribPointer(0, 3, gl.FLOAT, false, 8 * 4, 0);
     gl.vertexAttribPointer(1, 2, gl.FLOAT, false, 8 * 4, 3 * 4);
@@ -44,7 +65,8 @@ Chunk.prototype.draw = function(gl) {
     gl.enableVertexAttribArray(1);
     gl.enableVertexAttribArray(2);
 
-    gl.drawArrays(gl.TRIANGLES, 0, this.elementCount);
+    var offset = this.offsets[queue];
+    gl.drawArrays(gl.TRIANGLES, offset.offset, offset.length);
 
     gl.disableVertexAttribArray(0);
     gl.disableVertexAttribArray(1);

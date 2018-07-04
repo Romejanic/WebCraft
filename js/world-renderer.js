@@ -55,9 +55,17 @@ WorldRenderer.prototype.preRender = function(camera, shadows, isShadowPass) {
 WorldRenderer.prototype.render = function(gl, isShadowPass) {
     this.gl.activeTexture(this.gl.TEXTURE0);
     this.gl.bindTexture(gl.TEXTURE_2D, this.textureAtlas);
-    this.chunks.forEach((chunk) => {
-        chunk.draw(gl);
-    });
+    for(var queue = 0; queue < RENDER_QUEUES.length; queue++) {
+        this.chunks.forEach((chunk) => {
+            if(queue == 1) {
+                gl.disable(gl.CULL_FACE);
+            }
+            chunk.draw(gl, queue);
+            if(queue == 1) {
+                gl.enable(gl.CULL_FACE);
+            }
+        });
+    }
     this.shader.unbind();
     this.gl.bindTexture(gl.TEXTURE_2D, null);
 };

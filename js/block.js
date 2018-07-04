@@ -6,6 +6,7 @@ const blocks = Array(255); {
     new Block(5, "tall_grass", 7);
 
     blocks[5].transparent = true;
+    blocks[5].renderQueue = 1;
     blocks[5].render = function(vertices, world, x, y, z) {
         var surrounded = true;
 		for(var i = 0; i < FACING.length; i++) {
@@ -182,6 +183,10 @@ function Block(id, name, icon) {
     assert(!blocks[id], "A block with ID " + id + " is already registered!");
     blocks[id] = this;
 }
+
+Block.prototype.getRenderQueue = function() {
+    return this.renderQueue || 0;
+};
 
 Block.prototype.setIcon = function(icon) {
     this.icon = icon;
