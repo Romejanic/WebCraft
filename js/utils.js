@@ -39,3 +39,7 @@ const FACING = [
     new Face(0, 0, 1),  // 4 +Z
     new Face(0, 0, -1)  // 5 -Z
 ];
+const RENDER_QUEUES = [
+    "opaque",
+    "two-sided"
+];
