@@ -77,24 +77,24 @@ World.prototype.generate = function() {
         }
     }
 
+    for(var x = 0; x < this.width; x++) {
+        for(var z = 0; z < this.depth; z++) {
+            var y = this.getHeight(x, z);
+            if(y < seaLevel) {
+                this.setBlock(x, y, z, BLOCK_DIRT);
+                for(y++; y <= seaLevel; y++) {
+                    this.setBlock(x, y, z, BLOCK_WATER);
+                }
+            }
+        }
+    }
+
     for(var i = 0; i < 2000; i++) {
         var x = Math.floor(Math.random() * this.width);
         var z = Math.floor(Math.random() * this.depth);
         var y = this.getHeight(x, z) + 1;
-        if(this.isBlockAir(x, y, z)) {
+        if(this.isBlockAir(x, y, z) && this.getBlock(x, y - 1, z) != BLOCK_WATER) {
             this.setBlock(x, y, z, BLOCK_TALL_GRASS);
         }
     }
-
-    // for(var x = 0; x < this.width; x++) {
-    //     for(var z = 0; z < this.depth; z++) {
-    //         var y = this.getHeight(x, z);
-    //         if(y < seaLevel) {
-    //             this.setBlock(x, y, z, BLOCK_DIRT);
-    //             for(y++; y <= seaLevel; y++) {
-    //                 this.setBlock(x, y, z, BLOCK_WATER);
-    //             }
-    //         }
-    //     }
-    // }
 };

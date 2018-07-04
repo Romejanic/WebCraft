@@ -41,5 +41,6 @@ const FACING = [
 ];
 const RENDER_QUEUES = [
     "opaque",
-    "two-sided"
+    "two-sided",
+    "transparent"
 ];

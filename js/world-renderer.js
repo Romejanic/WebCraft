@@ -60,9 +60,16 @@ WorldRenderer.prototype.render = function(gl, isShadowPass) {
             if(queue == 1) {
                 gl.disable(gl.CULL_FACE);
             }
+            if(queue == 2) {
+                gl.enable(gl.BLEND);
+                gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+            }
             chunk.draw(gl, queue);
             if(queue == 1) {
                 gl.enable(gl.CULL_FACE);
+            }
+            if(queue == 2) {
+                gl.disable(gl.BLEND);
             }
         });
     }

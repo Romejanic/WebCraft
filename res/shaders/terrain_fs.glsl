@@ -24,6 +24,6 @@ void main() {
     vec3 normal = normalize(v_normal);
     float ndotl = max(dot(lightDirection, normal) * shadow,.2);
 
-    gl_FragColor.xyz = diffuseTex.xyz * ndotl;
-    gl_FragColor.a   = 1.;
+    gl_FragColor      = diffuseTex;
+    gl_FragColor.xyz *= ndotl;
 }

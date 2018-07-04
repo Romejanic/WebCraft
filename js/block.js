@@ -5,6 +5,7 @@ const blocks = Array(255); {
     new Block(4, "water", 8);
     new Block(5, "tall_grass", 7);
 
+    // TALL GRASS
     blocks[5].transparent = true;
     blocks[5].renderQueue = 1;
     blocks[5].render = function(vertices, world, x, y, z) {
@@ -140,6 +141,7 @@ const blocks = Array(255); {
 		vertices.push(this.getWaveAmount(1, 1));
     };
 
+    // GRASS
     blocks[3].getIcon = function(face) {
         if(face == 2) {
             return 2;
@@ -149,6 +151,9 @@ const blocks = Array(255); {
             return 1;
         }
     };
+
+    // WATER
+    blocks[4].renderQueue = 2;
     blocks[4].isFaceCulled = function(x, y, z, world, face) {
         var adjacentFaces = [0, 1, 4, 5];
         if(face == FACING[2]) {
