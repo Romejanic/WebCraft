@@ -158,6 +158,7 @@ const blocks = Array(255); {
 
     // WATER
     blocks[4].renderQueue = 2;
+    blocks[4].transparent = true;
     blocks[4].isFaceCulled = function(x, y, z, world, face) {
         var adjacentFaces = [0, 1, 4, 5];
         if(face == FACING[2]) {

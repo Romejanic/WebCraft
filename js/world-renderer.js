@@ -57,22 +57,25 @@ WorldRenderer.prototype.render = function(gl, isShadowPass) {
     this.gl.activeTexture(this.gl.TEXTURE0);
     this.gl.bindTexture(gl.TEXTURE_2D, this.textureAtlas);
     for(var queue = 0; queue < RENDER_QUEUES.length; queue++) {
+        if(queue == 2 && isShadowPass) {
+            continue;
+        }
+        if(queue == 1) {
+            gl.disable(gl.CULL_FACE);
+        }
+        if(queue == 2) {
+            gl.enable(gl.BLEND);
+            gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+        }
         this.chunks.forEach((chunk) => {
-            if(queue == 1) {
-                gl.disable(gl.CULL_FACE);
-            }
-            if(queue == 2) {
-                gl.enable(gl.BLEND);
-                gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
-            }
             chunk.draw(gl, queue);
-            if(queue == 1) {
-                gl.enable(gl.CULL_FACE);
-            }
-            if(queue == 2) {
-                gl.disable(gl.BLEND);
-            }
         });
+        if(queue == 1) {
+            gl.enable(gl.CULL_FACE);
+        }
+        if(queue == 2) {
+            gl.disable(gl.BLEND);
+        }
     }
     this.shader.unbind();
     this.gl.bindTexture(gl.TEXTURE_2D, null);
