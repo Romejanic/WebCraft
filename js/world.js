@@ -93,7 +93,7 @@ World.prototype.generate = function() {
     for(var i = 0; i < 2000; i++) {
         var x = Math.floor(Math.random() * this.width);
         var z = Math.floor(Math.random() * this.depth);
-        var y = this.getHeight(x, z) + 1;
+        var y = this.getHeight(x, z);
         var b = this.getBlock(x, y, z);
         y++;
         if(this.isBlockAir(x, y, z) && b != BLOCK_WATER && b != BLOCK_TALL_GRASS) {
