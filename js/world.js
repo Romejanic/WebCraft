@@ -57,11 +57,12 @@ World.prototype.generate = function() {
     const BLOCK_TALL_GRASS = blocks[5];
 
     var seaLevel = this.height / 2;
-    var heightDiff = 3;
+    var heightDiff = 5;
     for(var x = 0; x < this.width; x++) {
         for(var z = 0; z < this.depth; z++) {
             var sl  = seaLevel + (10 * noiseGen.noise2D(x / 50, z / 50));
-            var top = Math.floor(sl + heightDiff * noiseGen.noise2D(x / 25, z / 25));
+            var hd  = heightDiff + heightDiff * noiseGen.noise2D(x / 200, z / 200);
+            var top = Math.floor(sl + hd * noiseGen.noise2D(x / 25, z / 25));
             var dg  = 2 + 3 * (0.5 * noiseGen.noise2D(x / 15, z / 15) + 0.5);
             for(var y = 0; y < this.height; y++) {
                 if(y > top) {
@@ -93,7 +94,9 @@ World.prototype.generate = function() {
         var x = Math.floor(Math.random() * this.width);
         var z = Math.floor(Math.random() * this.depth);
         var y = this.getHeight(x, z) + 1;
-        if(this.isBlockAir(x, y, z) && this.getBlock(x, y - 1, z) != BLOCK_WATER) {
+        var b = this.getBlock(x, y, z);
+        y++;
+        if(this.isBlockAir(x, y, z) && b != BLOCK_WATER && b != BLOCK_TALL_GRASS) {
             this.setBlock(x, y, z, BLOCK_TALL_GRASS);
         }
     }
