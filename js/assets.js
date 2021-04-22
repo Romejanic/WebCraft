@@ -15,7 +15,7 @@ const assetLoader = {
             console.error("Failed to load asset manifest!");
             console.error(err);
         };
-        req.open("GET", "WebCraft/res/assets.json", true);
+        req.open("GET", "res/assets.json", true);
         req.send();
     },
     loadAsset: function(idx) {
