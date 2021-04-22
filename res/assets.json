@@ -2,27 +2,27 @@
     {
         "id": "terrain_vs",
         "type": "shader",
-        "url": "/res/shaders/terrain_vs.glsl"
+        "url": "WebCraft/res/shaders/terrain_vs.glsl"
     },
     {
         "id": "terrain_fs",
         "type": "shader",
-        "url": "/res/shaders/terrain_fs.glsl"
+        "url": "WebCraft/res/shaders/terrain_fs.glsl"
     },
     {
         "id": "shadow_vs",
         "type": "shader",
-        "url": "/res/shaders/shadow_vs.glsl"
+        "url": "WebCraft/res/shaders/shadow_vs.glsl"
     },
     {
         "id": "shadow_fs",
         "type": "shader",
-        "url": "/res/shaders/shadow_fs.glsl"
+        "url": "WebCraft/res/shaders/shadow_fs.glsl"
     },
 
     {
         "id": "terrain_atlas",
         "type": "texture",
-        "url": "/res/textures/atlas_default.png"
+        "url": "WebCraft/res/textures/atlas_default.png"
     }
 ]
